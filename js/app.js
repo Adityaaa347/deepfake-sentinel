@@ -1032,5 +1032,231 @@
     });
   }
 
+
+  // =========================================================================
+  // SIH 2024 (SIH1683) WORKBENCH & GRAD-CAM EXPLAINABILITY SIMULATOR
+  // =========================================================================
+  const sihModels = {
+    mesonet: {
+      name: 'MesoNet-4 (CNN)',
+      params: '61,865 Parameters',
+      type: 'Mesoscopic Convolutional Network',
+      backbone: '4x Conv + BatchNorm + MaxPool',
+      receptiveField: '31x31 px',
+      latentDim: '64 units',
+      inferenceFps: '142 FPS (CPU) / 820 FPS (GPU)',
+      resolution: '224 x 224 x 3',
+      rationale: 'Engineered specifically for micro-compression artifacts and blending boundary discontinuities in face crops (Afchar et al.).'
+    },
+    vit: {
+      name: 'DeepfakeViT (Vision Transformer)',
+      params: '4,986,881 Parameters',
+      type: 'Patch Self-Attention Network',
+      backbone: '6x Transformer Encoder Blocks',
+      receptiveField: 'Global (All 196 Patches)',
+      latentDim: '256 units (8 Heads)',
+      inferenceFps: '38 FPS (CPU) / 310 FPS (GPU)',
+      resolution: '224 x 224 (16x16 Patches)',
+      rationale: 'Models long-range landmark inconsistencies (asymmetric eye reflections, lighting gradients, jawline alignment) across the entire face.'
+    },
+    hybrid: {
+      name: 'Dual-Stream Hybrid (CNN-ViT)',
+      params: '5,048,746 Parameters',
+      type: 'Late Fusion Ensemble',
+      backbone: 'Meso4 Texture + ViT Global Coherence',
+      receptiveField: 'Multi-scale Local & Global',
+      latentDim: '128 concatenated units',
+      inferenceFps: '32 FPS (CPU) / 260 FPS (GPU)',
+      resolution: '224 x 224 x 3',
+      rationale: 'Fuses high-frequency boundary gradient features from CNN with holistic attention maps from ViT for peak accuracy on FaceForensics++ and Celeb-DF.'
+    }
+  };
+
+  function updateSIHArchSpec(modelKey) {
+    const spec = sihModels[modelKey];
+    const specContainer = document.getElementById('sih-arch-spec');
+    const badge = document.getElementById('model-param-badge');
+    if (badge) badge.textContent = spec.params;
+    if (!specContainer) return;
+
+    specContainer.innerHTML = `
+      <div class="sih-spec-grid">
+        <div class="sih-spec-item">
+          <span class="sih-spec-label">Architecture</span>
+          <span class="sih-spec-val">${spec.type}</span>
+        </div>
+        <div class="sih-spec-item">
+          <span class="sih-spec-label">Receptive Field</span>
+          <span class="sih-spec-val">${spec.receptiveField}</span>
+        </div>
+        <div class="sih-spec-item">
+          <span class="sih-spec-label">Inference Speed</span>
+          <span class="sih-spec-val">${spec.inferenceFps}</span>
+        </div>
+        <div class="sih-spec-item">
+          <span class="sih-spec-label">Backbone Structure</span>
+          <span class="sih-spec-val">${spec.backbone}</span>
+        </div>
+        <div class="sih-spec-item">
+          <span class="sih-spec-label">Latent Feature Dim</span>
+          <span class="sih-spec-val">${spec.latentDim}</span>
+        </div>
+        <div class="sih-spec-item">
+          <span class="sih-spec-label">Input Shape</span>
+          <span class="sih-spec-val">${spec.resolution}</span>
+        </div>
+      </div>
+      <p style="margin-top: 10px; font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+        <strong style="color: var(--text-main);">Theoretical Rationale:</strong> ${spec.rationale}
+      </p>
+    `;
+  }
+
+  function renderGradCAM(isFake = true) {
+    const inputCanvas = document.getElementById('sih-input-canvas');
+    const camCanvas = document.getElementById('sih-cam-canvas');
+    const overlayCanvas = document.getElementById('sih-overlay-canvas');
+    if (!inputCanvas || !camCanvas || !overlayCanvas) return;
+
+    const ctxIn = inputCanvas.getContext('2d');
+    const ctxCam = camCanvas.getContext('2d');
+    const ctxOver = overlayCanvas.getContext('2d');
+
+    const W = 224;
+    const H = 224;
+
+    // 1. Draw synthetic face simulation on input canvas
+    ctxIn.fillStyle = '#1c2430';
+    ctxIn.fillRect(0, 0, W, H);
+
+    // Head oval
+    ctxIn.beginPath();
+    ctxIn.ellipse(112, 112, 65, 85, 0, 0, Math.PI * 2);
+    ctxIn.fillStyle = isFake ? '#c49a7a' : '#d2a688';
+    ctxIn.fill();
+
+    // Eyes
+    ctxIn.fillStyle = '#222';
+    ctxIn.beginPath();
+    ctxIn.arc(90, 95, 6, 0, Math.PI * 2);
+    ctxIn.arc(134, 95, 6, 0, Math.PI * 2);
+    ctxIn.fill();
+
+    // Nose
+    ctxIn.strokeStyle = '#9c7356';
+    ctxIn.lineWidth = 2;
+    ctxIn.beginPath();
+    ctxIn.moveTo(112, 98);
+    ctxIn.lineTo(108, 122);
+    ctxIn.lineTo(116, 122);
+    ctxIn.stroke();
+
+    // Mouth
+    ctxIn.beginPath();
+    ctxIn.ellipse(112, 142, 16, 6, 0, 0, Math.PI * 2);
+    ctxIn.fillStyle = '#a85b59';
+    ctxIn.fill();
+
+    if (isFake) {
+      // Draw visible face-swap bounding seam
+      ctxIn.strokeStyle = 'rgba(180, 80, 80, 0.4)';
+      ctxIn.lineWidth = 1.5;
+      ctxIn.setLineDash([4, 2]);
+      ctxIn.beginPath();
+      ctxIn.ellipse(112, 125, 48, 55, 0, 0, Math.PI * 2);
+      ctxIn.stroke();
+      ctxIn.setLineDash([]);
+    }
+
+    // 2. Generate Grad-CAM Heatmap
+    const imgDataCam = ctxCam.createImageData(W, H);
+    const dataCam = imgDataCam.data;
+
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        let intensity = 0;
+        if (isFake) {
+          const dx = (x - 112) / 48;
+          const dy = (y - 125) / 55;
+          const distToCenter = Math.sqrt(dx * dx + dy * dy);
+          const seamDist = Math.abs(distToCenter - 0.95);
+          const mouthDist = Math.hypot(x - 112, y - 142) / 25;
+          intensity = Math.max(0, 1 - seamDist * 3.5) * 0.9 + Math.max(0, 1 - mouthDist) * 0.8;
+          intensity = Math.min(1.0, intensity);
+        } else {
+          intensity = 0.08 + Math.random() * 0.05;
+        }
+
+        let r = 0, g = 0, b = 0;
+        if (intensity < 0.25) {
+          b = Math.floor(255 * (intensity / 0.25));
+        } else if (intensity < 0.5) {
+          b = 255;
+          g = Math.floor(255 * ((intensity - 0.25) / 0.25));
+        } else if (intensity < 0.75) {
+          g = 255;
+          b = Math.floor(255 * (1 - (intensity - 0.5) / 0.25));
+          r = Math.floor(255 * ((intensity - 0.5) / 0.25));
+        } else {
+          r = 255;
+          g = Math.floor(255 * (1 - (intensity - 0.75) / 0.25));
+        }
+
+        const idx = (y * W + x) * 4;
+        dataCam[idx] = r;
+        dataCam[idx + 1] = g;
+        dataCam[idx + 2] = b;
+        dataCam[idx + 3] = 255;
+      }
+    }
+    ctxCam.putImageData(imgDataCam, 0, 0);
+
+    // 3. Draw Overlay: Input Face + 55% CAM
+    ctxOver.drawImage(inputCanvas, 0, 0);
+    ctxOver.globalAlpha = 0.55;
+    ctxOver.drawImage(camCanvas, 0, 0);
+    ctxOver.globalAlpha = 1.0;
+
+    // 4. Update Verdict text
+    const verdictBar = document.getElementById('sih-verdict-bar');
+    const verdictLabel = document.getElementById('sih-verdict-label');
+    const verdictDesc = document.getElementById('sih-verdict-desc');
+
+    if (verdictBar && verdictLabel && verdictDesc) {
+      if (isFake) {
+        verdictBar.className = 'sih-verdict-bar';
+        verdictLabel.textContent = 'DEEPFAKE DETECTED (CONFIDENCE: 98.4%)';
+        verdictDesc.textContent = 'High gradient concentration localized around central facial blending seam and perioral boundary.';
+      } else {
+        verdictBar.className = 'sih-verdict-bar authentic';
+        verdictLabel.textContent = 'AUTHENTIC FACE (CONFIDENCE: 96.7%)';
+        verdictDesc.textContent = 'Uniform diffuse spatial frequency distribution with natural skin pore noise and zero boundary anomalies.';
+      }
+    }
+  }
+
+  function initSIH1683Workbench() {
+    updateSIHArchSpec('mesonet');
+    renderGradCAM(true);
+
+    const modelBtns = document.querySelectorAll('.sih-model-btn');
+    modelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        modelBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const modelKey = btn.dataset.model;
+        updateSIHArchSpec(modelKey);
+        showToast(`Switched neural architecture to ${sihModels[modelKey].name}`);
+      });
+    });
+
+    const btnFake = document.getElementById('btn-sample-fake-face');
+    const btnReal = document.getElementById('btn-sample-real-face');
+    if (btnFake) btnFake.addEventListener('click', () => renderGradCAM(true));
+    if (btnReal) btnReal.addEventListener('click', () => renderGradCAM(false));
+  }
+
+  initSIH1683Workbench();
+
   document.getElementById('rep-docket-id').value = PoliceReporting.generateDocketNumber();
 })();

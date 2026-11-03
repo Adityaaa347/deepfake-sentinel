@@ -887,3 +887,320 @@ body {
 }
 
 .hidden { display: none !important; }
+
+
+/* ===================================================================
+   SIH 2024 (SIH1683) — AI/ML NEURAL CLASSIFIER & BENCHMARK STYLES
+   =================================================================== */
+
+.sih-banner {
+  background: var(--surface);
+  border: 1px solid var(--border-medium);
+  border-left: 3px solid var(--cyan-core);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  margin-bottom: 20px;
+}
+
+.sih-banner-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--cyan-core);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.sih-banner-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.sih-banner-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.sih-banner-meta strong {
+  color: var(--text-main);
+}
+
+.workbench-layout-sih {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .workbench-layout-sih {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sih-model-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.sih-model-btn {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  color: var(--text-muted);
+}
+
+.sih-model-btn:hover {
+  border-color: var(--border-active);
+  background: var(--surface-elevated);
+}
+
+.sih-model-btn.active {
+  border-color: var(--cyan-core);
+  background: var(--cyan-subtle);
+  color: var(--text-main);
+}
+
+.sih-model-name {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.sih-model-sub {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 3px;
+  font-family: var(--font-mono);
+}
+
+.sih-model-btn.active .sih-model-sub {
+  color: var(--cyan-core);
+}
+
+.sih-arch-spec {
+  margin-top: 14px;
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+
+.sih-spec-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.sih-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sih-spec-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sih-spec-val {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.sih-cam-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.sih-cam-canvas-box {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sih-cam-canvas-box canvas {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  background: #000;
+  image-rendering: pixelated;
+}
+
+.sih-verdict-bar {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: var(--crimson-bg);
+  border: 1px solid var(--crimson-border);
+  border-radius: var(--radius-sm);
+}
+
+.sih-verdict-bar.authentic {
+  background: var(--emerald-bg);
+  border-color: var(--emerald-border);
+}
+
+.sih-verdict-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--crimson-core);
+  letter-spacing: 0.04em;
+}
+
+.sih-verdict-bar.authentic .sih-verdict-tag {
+  color: var(--emerald-core);
+}
+
+.sih-verdict-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.imbalance-metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.imbalance-stat {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.imbalance-stat-val {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--amber-core);
+}
+
+.imbalance-stat-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.math-callout {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+
+.math-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--cyan-core);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.math-callout code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--surface-elevated);
+  padding: 6px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--border-medium);
+  color: var(--text-main);
+  overflow-x: auto;
+}
+
+.sih-benchmark-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+  margin-top: 12px;
+}
+
+.sih-benchmark-table th {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-medium);
+  letter-spacing: 0.05em;
+}
+
+.sih-benchmark-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.sih-benchmark-table tr.highlight-row {
+  background: rgba(74, 138, 214, 0.08);
+}
+
+.sih-benchmark-table tr.highlight-row td {
+  color: var(--text-main);
+}
+
+.badge-chip {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 6px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 3px;
+  color: var(--cyan-core);
+}
+
+.cli-snippet-box {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-top: 12px;
+}
+
+.cli-snippet-box code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  display: block;
+}
+
+.link-external {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyan-core);
+  text-decoration: none;
+}
+
+.link-external:hover {
+  text-decoration: underline;
+}
