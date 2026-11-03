@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritas Sentinel: Forensic Media Analysis &amp; Cyber Escalation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- TOP SHELL -->
+  <header class="top-shell">
+    <div class="shell-container">
+      <div class="brand-unit">
+        <div class="brand-emblem">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Veritas Sentinel</h1>
+          <p>Autonomous Client-Side Deepfake Forensics &amp; Police Escalation</p>
+        </div>
+      </div>
+      <div class="shell-status-group">
+        <div class="status-chip chip-active">
+          <span class="status-dot"></span>
+          <span>Zero-Cloud Local Core</span>
+        </div>
+        <div class="status-chip">
+          <span>Admissibility: ISO/IEC 27037</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- NAVIGATION TABS -->
+  <nav class="tabs-bar">
+    <div class="tabs-container">
+      <button class="tab-btn active" data-tab="image">
+        <span>Image forensics</span>
+        <span class="tab-badge">ELA + Noise</span>
+      </button>
+      <button class="tab-btn" data-tab="video">
+        <span>Video continuity</span>
+        <span class="tab-badge">Keyframes</span>
+      </button>
+      <button class="tab-btn" data-tab="audio">
+        <span>Voice spectral</span>
+        <span class="tab-badge">Oscilloscope</span>
+      </button>
+      <button class="tab-btn" data-tab="text">
+        <span>Text &amp; narrative</span>
+        <span class="tab-badge">Entropy</span>
+      </button>
+      <button class="tab-btn danger-tab" data-tab="report">
+        <span>Police escalation</span>
+        <span class="tab-badge">Direct Dispatch</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN VIEWPORT -->
+  <main class="main-viewport">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: IMAGE FORENSICS                     -->
+    <!-- ========================================== -->
+    <section id="panel-image" class="tab-panel active">
+      
+      <!-- Interactive Drop & Preset Bar -->
+      <div class="drop-zone-tactile" id="img-dropzone">
+        <input type="file" id="img-input" accept="image/jpeg,image/png,image/webp" style="display:none;" />
+        <div class="drop-info">
+          <div class="drop-title">Select or drop target image to inspect</div>
+          <div class="drop-hint">JPEG, PNG, WebP — Processed entirely in browser RAM via Canvas &amp; Web Crypto</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" id="btn-demo-spliced-img">Load spliced test</button>
+          <button class="btn btn-outline" id="btn-demo-auth-img">Load authentic test</button>
+        </div>
+      </div>
+
+      <!-- Split-Screen Interactive Workbench -->
+      <div class="split-workbench">
+        <div class="workbench-bar">
+          <div class="workbench-title-group">
+            <span class="case-id-tag" id="img-case-tag">EXHIBIT // SPLICED-FACE-SAMPLE</span>
+            <span style="font-size: 12px; color: var(--text-muted);">Drag divider to compare original capture vs forensic recompression</span>
+          </div>
+          <div class="toggle-dock">
+            <button class="dock-btn" data-img-view="original">Optical photo</button>
+            <button class="dock-btn active" data-img-view="ela">Error level (ELA)</button>
+            <button class="dock-btn" data-img-view="noise">Noise spectrum</button>
+            <button class="dock-btn" data-img-view="chrom">Chrominance</button>
+          </div>
+        </div>
+
+        <div class="split-stage-wrapper" id="split-stage-wrapper">
+          <!-- Base layer: Optical Original -->
+          <div class="split-layer">
+            <canvas id="img-base-canvas" class="stage-canvas"></canvas>
+          </div>
+          <!-- Overlay layer: Forensic Analysis Canvas -->
+          <div class="split-layer-compare" id="split-compare-layer">
+            <canvas id="img-compare-canvas" class="stage-canvas"></canvas>
+          </div>
+          <!-- Draggable Handle -->
+          <div class="split-divider-handle" id="split-handle">⟷</div>
+          <!-- Captions -->
+          <div class="slider-caption-left">Optical capture</div>
+          <div class="slider-caption-right" id="slider-compare-title">Error level analysis (ELA)</div>
+          <!-- Optical Magnifier Reticle -->
+          <canvas id="img-loupe" width="130" height="130"></canvas>
+        </div>
+      </div>
+
+      <!-- Telemetry Grid -->
+      <div class="dock-columns">
+        <div class="card-panel">
+          <div class="card-header-line">
+            <span class="card-header-title">Diagnostic telemetry &amp; tamper anomalies</span>
+            <span style="font-size: 11px; color: var(--text-dim);">Real-time pixel calculation</span>
+          </div>
+
+          <ul class="findings-list" id="img-findings-list"></ul>
+
+          <div class="card-header-line" style="margin-top: 18px;">
+            <span class="card-header-title">Hardware tags &amp; binary chunk inspector</span>
+          </div>
+          <div class="raw-metadata-box" id="img-meta-dump"></div>
+        </div>
+
+        <div>
+          <div class="verdict-cockpit">
+            <div>
+              <div class="verdict-score" id="img-score-val">84%</div>
+              <div class="verdict-sublabel">Synthetic tamper confidence</div>
+            </div>
+            <span id="img-verdict-badge" class="badge-tag badge-danger">SYNTHETIC MANIPULATION</span>
+          </div>
+
+          <div class="card-panel" style="margin-bottom: 16px;">
+            <div class="card-header-line">
+              <span class="card-header-title">Measured parameters</span>
+            </div>
+            <div id="img-metrics-grid"></div>
+          </div>
+
+          <button class="btn btn-danger btn-block" data-report-handoff="image">
+            Transfer evidence to Police Desk ↗
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 2: VIDEO CONTINUITY                    -->
+    <!-- ========================================== -->
+    <section id="panel-video" class="tab-panel">
+      
+      <div class="drop-zone-tactile" id="vid-dropzone">
+        <input type="file" id="vid-input" accept="video/mp4,video/webm,video/quicktime" style="display:none;" />
+        <div class="drop-info">
+          <div class="drop-title">Select or drop target video file</div>
+          <div class="drop-hint">MP4, WebM, MOV — Optical frame vectors computed locally via Canvas API</div>
+        </div>
+        <button class="btn btn-secondary" id="btn-demo-jitter-vid">Synthesize temporal jitter test</button>
+      </div>
+
+      <div id="vid-progress-container" class="hidden" style="margin-bottom: 16px;">
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Sampling keyframe deltas...</div>
+        <div style="width: 100%; height: 3px; background: var(--surface-raised); border-radius: 2px; overflow: hidden;">
+          <div id="vid-progress-bar" style="width: 0%; height: 100%; background: var(--cyan-core); transition: width 0.15s ease;"></div>
+        </div>
+      </div>
+
+      <div class="card-panel" style="margin-bottom: 20px;">
+        <div class="card-header-line">
+          <span class="card-header-title">Sampled keyframe sequence &amp; temporal alignment</span>
+          <span style="font-size: 11px; color: var(--text-dim);">Red border marks temporal jitter spikes</span>
+        </div>
+        <div class="video-keyframe-strip" id="vid-keyframes-strip"></div>
+      </div>
+
+      <div class="dock-columns">
+        <div class="card-panel">
+          <div class="card-header-line">
+            <span class="card-header-title">Temporal optical flow observations</span>
+          </div>
+          <ul class="findings-list" id="vid-findings-list"></ul>
+        </div>
+
+        <div>
+          <div class="verdict-cockpit">
+            <div>
+              <div class="verdict-score" id="vid-score-val">0%</div>
+              <div class="verdict-sublabel">Deepfake video likelihood</div>
+            </div>
+            <span id="vid-verdict-badge" class="badge-tag badge-safe">READY</span>
+          </div>
+
+          <div class="card-panel" style="margin-bottom: 16px;">
+            <div class="card-header-line">
+              <span class="card-header-title">Inter-frame metrics</span>
+            </div>
+            <div id="vid-metrics-grid"></div>
+          </div>
+
+          <button class="btn btn-danger btn-block" data-report-handoff="video">
+            Transfer evidence to Police Desk ↗
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 3: VOICE SPECTRAL                      -->
+    <!-- ========================================== -->
+    <section id="panel-audio" class="tab-panel">
+      
+      <div class="drop-zone-tactile" id="aud-dropzone">
+        <input type="file" id="aud-input" accept="audio/*" style="display:none;" />
+        <div class="drop-info">
+          <div class="drop-title">Select or drop voice note or audio file</div>
+          <div class="drop-hint">MP3, WAV, AAC, M4A, OGG — Nyquist vocoder cliff &amp; acoustic floor inspection</div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" id="btn-demo-synth-audio">Synthesize vocoder test</button>
+          <button class="btn btn-outline" id="btn-demo-auth-audio">Synthesize microphone test</button>
+        </div>
+      </div>
+
+      <!-- Real-Time Oscilloscope & Spectrogram Rig -->
+      <div class="audio-rig">
+        <div class="card-header-line" style="margin-bottom: 10px;">
+          <span class="card-header-title">Real-time acoustic frequency spectrum &amp; vocoder brick-wall monitor</span>
+          <span style="font-size: 11px; font-family: var(--font-mono); color: var(--cyan-core);" id="audio-playback-status">Standby</span>
+        </div>
+        <canvas id="aud-spectrum-canvas" class="oscilloscope-canvas" width="800" height="120"></canvas>
+        <div class="audio-controls-bar">
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-primary" id="btn-audio-play-sample">Play Audio Sample</button>
+            <button class="btn btn-secondary" id="btn-audio-stop-sample">Stop</button>
+          </div>
+          <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
+            Frequency Range: 20 Hz – 22.05 kHz | Nyquist Window: 2048 FFT
+          </div>
+        </div>
+      </div>
+
+      <div class="dock-columns">
+        <div class="card-panel">
+          <div class="card-header-line">
+            <span class="card-header-title">Neural vocoder diagnostic findings</span>
+          </div>
+          <ul class="findings-list" id="aud-findings-list"></ul>
+        </div>
+
+        <div>
+          <div class="verdict-cockpit">
+            <div>
+              <div class="verdict-score" id="aud-score-val">0%</div>
+              <div class="verdict-sublabel">Synthetic speech probability</div>
+            </div>
+            <span id="aud-verdict-badge" class="badge-tag badge-safe">READY</span>
+          </div>
+
+          <div class="card-panel" style="margin-bottom: 16px;">
+            <div class="card-header-line">
+              <span class="card-header-title">Acoustic measurements</span>
+            </div>
+            <div id="aud-metrics-grid"></div>
+          </div>
+
+          <button class="btn btn-danger btn-block" data-report-handoff="audio">
+            Transfer evidence to Police Desk ↗
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 4: TEXT AND NARRATIVE                  -->
+    <!-- ========================================== -->
+    <section id="panel-text" class="tab-panel">
+      
+      <div class="card-panel" style="margin-bottom: 20px;">
+        <div class="card-header-line">
+          <span class="card-header-title">Authorship &amp; LLM narrative inspector</span>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" id="btn-sample-ai">Load AI model sample</button>
+            <button class="btn btn-outline" id="btn-sample-human">Load human sample</button>
+          </div>
+        </div>
+
+        <textarea id="text-input-area" class="narrative-textarea" placeholder="Paste suspected text communication, extortion message, or generated narrative..."></textarea>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
+          <button class="btn btn-primary" id="btn-analyze-text">Analyze Narrative Entropy</button>
+        </div>
+      </div>
+
+      <div class="dock-columns" id="text-results">
+        <div class="card-panel">
+          <div class="card-header-line">
+            <span class="card-header-title">Linguistic diagnostic findings</span>
+          </div>
+          <ul class="findings-list" id="text-findings-list"></ul>
+          <div id="text-markers-container" style="margin-top: 16px;"></div>
+        </div>
+
+        <div>
+          <div class="verdict-cockpit">
+            <div>
+              <div class="verdict-score" id="text-score-val">0%</div>
+              <div class="verdict-sublabel">Algorithmic text likelihood</div>
+            </div>
+            <span id="text-verdict-badge" class="badge-tag badge-safe">READY</span>
+          </div>
+
+          <div class="card-panel" style="margin-bottom: 16px;">
+            <div class="card-header-line">
+              <span class="card-header-title">Statistical metrics</span>
+            </div>
+            <div id="text-metrics-grid"></div>
+          </div>
+
+          <button class="btn btn-danger btn-block" data-report-handoff="text">
+            Transfer narrative to Police Desk ↗
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TAB 5: POLICE ESCALATION DESK              -->
+    <!-- ========================================== -->
+    <section id="panel-report" class="tab-panel">
+      
+      <div class="enforcement-banner">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main);">Official Cybercrime Incident Reporting &amp; Evidence Dispatch</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">Generate court-admissible dossiers under Section 65B (IEA), US FRE 902, UK PACE Sec 69 with SHA-256 chain of custody.</p>
+          </div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Target jurisdiction:</span>
+            <select id="rep-jurisdiction" class="dossier-input" style="width: auto; min-width: 280px; padding: 6px 10px;">
+              <option value="IN">India (cybercrime.gov.in / 1930)</option>
+              <option value="US">United States (ic3.gov / FBI)</option>
+              <option value="UK">United Kingdom (actionfraud.police.uk)</option>
+              <option value="EU">European Union (Europol EC3)</option>
+              <option value="AU">Australia (cyber.gov.au)</option>
+              <option value="INTL">International (INTERPOL)</option>
+            </select>
+          </div>
+        </div>
+        <div id="rep-jurisdiction-info" style="margin-top: 12px; font-size: 12px; color: var(--text-muted);"></div>
+      </div>
+
+      <div class="police-dossier-layout">
+        <!-- Form Fields -->
+        <div class="card-panel">
+          <div class="card-header-line">
+            <span class="card-header-title">Sworn Complaint &amp; Incident Parameters</span>
+          </div>
+
+          <form id="police-report-form" onsubmit="return false;">
+            <div class="dossier-input-grid">
+              <div class="input-block">
+                <label class="input-label" for="rep-docket-id">Docket tracking identifier</label>
+                <input type="text" id="rep-docket-id" class="dossier-input dossier-mono" readonly />
+              </div>
+              <div class="input-block">
+                <label class="input-label" for="rep-category">Incident classification</label>
+                <select id="rep-category" class="dossier-input">
+                  <option value="Non-Consensual Deepfake & Defamation">Non-Consensual Deepfake &amp; Defamation</option>
+                  <option value="Voice Clone Financial Fraud / Extortion">Voice Clone Financial Fraud / Extortion</option>
+                  <option value="Corporate / CEO Impersonation Scam">Corporate / CEO Impersonation Scam</option>
+                  <option value="Political & Election Disinformation">Political &amp; Election Disinformation</option>
+                  <option value="Cyber Harassment & Identity Theft">Cyber Harassment &amp; Identity Theft</option>
+                  <option value="Child Safety Violation (Urgent Escalation)">Child Safety Violation (Urgent Escalation)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="dossier-input-grid">
+              <div class="input-block">
+                <label class="input-label" for="rep-media-type">Evidentiary media format</label>
+                <input type="text" id="rep-media-type" class="dossier-input dossier-mono" value="DIGITAL IMAGE / VIDEO" />
+              </div>
+              <div class="input-block">
+                <label class="input-label" for="rep-filename">Evidence file name</label>
+                <input type="text" id="rep-filename" class="dossier-input dossier-mono" placeholder="evidence_sample.jpg" />
+              </div>
+            </div>
+
+            <div class="input-block">
+              <label class="input-label" for="rep-hash">SHA-256 cryptographic digest (chain of custody)</label>
+              <input type="text" id="rep-hash" class="dossier-input dossier-mono" placeholder="SHA-256 hash automatically calculated upon file ingestion" />
+            </div>
+
+            <div class="input-block">
+              <label class="input-label" for="rep-forensic-verdict">Automated forensic finding summary</label>
+              <input type="text" id="rep-forensic-verdict" class="dossier-input" placeholder="DEEPFAKE DETECTED (84% confidence)" />
+            </div>
+
+            <div class="card-header-line" style="margin: 20px 0 12px 0;">
+              <span class="card-header-title">Complainant / Victim Particulars</span>
+            </div>
+
+            <div class="dossier-input-grid">
+              <div class="input-block">
+                <label class="input-label" for="rep-name">Full legal name</label>
+                <input type="text" id="rep-name" class="dossier-input" placeholder="Complainant name" />
+              </div>
+              <div class="input-block">
+                <label class="input-label" for="rep-phone">Contact phone number</label>
+                <input type="text" id="rep-phone" class="dossier-input" placeholder="+1 / +91 ..." />
+              </div>
+            </div>
+
+            <div class="dossier-input-grid">
+              <div class="input-block">
+                <label class="input-label" for="rep-email">Contact email</label>
+                <input type="email" id="rep-email" class="dossier-input" placeholder="complainant@domain.com" />
+              </div>
+              <div class="input-block">
+                <label class="input-label" for="rep-id-ref">National identity reference</label>
+                <input type="text" id="rep-id-ref" class="dossier-input" placeholder="National ID / Driver License" />
+              </div>
+            </div>
+
+            <div class="input-block">
+              <label class="input-label" for="rep-location">Residential city and jurisdiction</label>
+              <input type="text" id="rep-location" class="dossier-input" placeholder="City, State, Country" />
+            </div>
+
+            <div class="card-header-line" style="margin: 20px 0 12px 0;">
+              <span class="card-header-title">Suspect Coordinates &amp; Distribution Platform</span>
+            </div>
+
+            <div class="dossier-input-grid">
+              <div class="input-block">
+                <label class="input-label" for="rep-suspect-name">Suspect handle or identity</label>
+                <input type="text" id="rep-suspect-name" class="dossier-input" placeholder="@username or unknown" />
+              </div>
+              <div class="input-block">
+                <label class="input-label" for="rep-platform">Platform of dissemination</label>
+                <input type="text" id="rep-platform" class="dossier-input" placeholder="WhatsApp, Instagram, Telegram, X, Email" />
+              </div>
+            </div>
+
+            <div class="input-block">
+              <label class="input-label" for="rep-profile-url">Suspect post / profile URL</label>
+              <input type="url" id="rep-profile-url" class="dossier-input dossier-mono" placeholder="https://..." />
+            </div>
+
+            <div class="input-block">
+              <label class="input-label" for="rep-suspect-contact">Additional coordinate data (phone, IP, UPI/bank refs)</label>
+              <input type="text" id="rep-suspect-contact" class="dossier-input" placeholder="Any associated transaction references or coordinates" />
+            </div>
+
+            <div class="input-block">
+              <label class="input-label" for="rep-narrative">Sworn factual timeline &amp; statement</label>
+              <textarea id="rep-narrative" class="narrative-textarea" style="min-height: 120px;" placeholder="Provide chronological details of how the media was encountered, damages caused, and extortion demands made..."></textarea>
+            </div>
+          </form>
+        </div>
+
+        <!-- Evidentiary Actions -->
+        <div>
+          <div class="card-panel">
+            <div class="card-header-line">
+              <span class="card-header-title">Evidentiary Dispatch Actions</span>
+            </div>
+
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+              Generate verifiable electronic exhibits ready for direct submission to police stations or cyber crime reporting portals.
+            </p>
+
+            <div class="btn-stack">
+              <button class="btn btn-danger btn-block" id="btn-export-pdf">
+                Generate Official Legal Dossier (Print / PDF)
+              </button>
+
+              <button class="btn btn-secondary btn-block" id="btn-download-json">
+                Download Signed Evidence Packet (.JSON)
+              </button>
+
+              <button class="btn btn-primary btn-block" id="btn-launch-portal">
+                Open Official National Cyber Portal ↗
+              </button>
+
+              <button class="btn btn-secondary btn-block" id="btn-simulate-submit">
+                Pre-Register Incident via Dispatch API
+              </button>
+            </div>
+          </div>
+
+          <div class="card-panel" style="margin-top: 18px;">
+            <div class="card-header-line">
+              <span class="card-header-title">Immediate Victim Directives</span>
+            </div>
+            <ul class="findings-list">
+              <li>Do not alter or re-save raw files. Bit-exact files are required for court hash matching.</li>
+              <li>Report financial extortion within 2 hours to freeze bank transfers under emergency mandates.</li>
+              <li>Never pay extortion demands; perpetrators routinely escalate ransom requests upon receipt.</li>
+              <li>Use the generated legal complaint to compel host platforms to take down content immediately.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: DISPATCH CONFIRMATION -->
+  <div id="dispatch-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div id="dispatch-modal-content"></div>
+      <div style="margin-top: 20px; text-align: right;">
+        <button class="btn btn-secondary" id="modal-close-btn">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast"></div>
+
+  <!-- VANILLA JAVASCRIPT MODULES — ZERO EXTERNAL LIBRARIES -->
+  <script src="js/image-forensics.js"></script>
+  <script src="js/video-forensics.js"></script>
+  <script src="js/audio-forensics.js"></script>
+  <script src="js/text-forensics.js"></script>
+  <script src="js/police-report.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
