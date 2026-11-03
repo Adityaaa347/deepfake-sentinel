@@ -16,6 +16,18 @@
 
 ---
 
+## 📂 Benchmark Datasets & Download Links
+1. **FaceForensics++ (FF++)**:
+   * **Source & Official Repository:** [https://github.com/ondyari/FaceForensics](https://github.com/ondyari/FaceForensics)
+   * **Size:** 1,000 original videos, 4,000 manipulated sequences across Deepfakes, Face2Face, FaceSwap, NeuralTextures (~45 GB).
+   * **Preprocessing:** Temporal sampling, Haar cascade facial crop with 15% boundary dilation, resized to $224 \times 224$ with ImageNet normalization.
+2. **Celeb-DF v2**:
+   * **Source & Official Repository:** [https://github.com/yuezunli/celeb-deepfakeforensics](https://github.com/yuezunli/celeb-deepfakeforensics)
+   * **Size:** 590 authentic celebrity videos and 5,639 high-quality synthesized videos (~16.8 GB).
+   * **Class Imbalance:** 9.55:1 imbalance ratio mitigated via Focal Loss ($\gamma=2.0, \alpha=0.25$) and batch-level `WeightedRandomSampler`.
+
+---
+
 ## 🧠 Neural Architecture & ML Pipeline (`ml/`)
 
 ### 1. MesoNet-4 (CNN Architecture)

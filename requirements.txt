@@ -1,0 +1,10 @@
+# CSE276: Deepfake Detection Assistant (Veritas Sentinel)
+# Core ML & Deep Learning Dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+scipy>=1.10.0
+scikit-learn>=1.2.0
+opencv-python>=4.7.0
+pillow>=9.5.0
+matplotlib>=3.7.0
