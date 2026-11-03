@@ -1204,3 +1204,215 @@ body {
 .link-external:hover {
   text-decoration: underline;
 }
+
+/* ===================================================================
+   HUMAN-CENTERED DESIGN & ACCESSIBILITY UPGRADE (DESIGN THINKING)
+   =================================================================== */
+
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-medium);
+  color: var(--cyan-core);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.04em;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.emergency-chip {
+  background: var(--crimson-bg) !important;
+  border-color: var(--crimson-border) !important;
+  color: var(--crimson-core) !important;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.emergency-chip:hover {
+  filter: brightness(1.2);
+}
+
+.tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-icon {
+  font-size: 14px;
+}
+
+.tab-label {
+  font-weight: 500;
+}
+
+.danger-badge {
+  background: var(--crimson-bg);
+  border-color: var(--crimson-border);
+  color: var(--crimson-core);
+}
+
+/* QUICK VERDICT CARDS (Plain-English Summary for Everyone) */
+.quick-verdict-card {
+  background: var(--surface);
+  border: 1px solid var(--border-medium);
+  border-left: 4px solid var(--crimson-core);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.quick-verdict-card.authentic {
+  border-left-color: var(--emerald-core);
+}
+
+.quick-verdict-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--crimson-bg);
+  color: var(--crimson-core);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--crimson-border);
+}
+
+.quick-verdict-card.authentic .quick-verdict-icon-box {
+  background: var(--emerald-bg);
+  color: var(--emerald-core);
+  border-color: var(--emerald-border);
+}
+
+.quick-verdict-body {
+  flex: 1;
+}
+
+.quick-verdict-status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.quick-verdict-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 3px;
+  background: var(--crimson-bg);
+  border: 1px solid var(--crimson-border);
+  color: var(--crimson-core);
+}
+
+.quick-verdict-badge.authentic {
+  background: var(--emerald-bg);
+  border-color: var(--emerald-border);
+  color: var(--emerald-core);
+}
+
+.quick-verdict-subtext {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.quick-verdict-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.quick-verdict-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  max-width: 720px;
+}
+
+.quick-verdict-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+@media (max-width: 768px) {
+  .quick-verdict-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .quick-verdict-actions {
+    align-self: flex-start;
+    width: 100%;
+  }
+  .quick-verdict-actions button {
+    width: 100%;
+  }
+}
+
+/* 3-STEP USER GUIDE STRIP */
+.user-guide-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 800px) {
+  .user-guide-strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+.guide-step {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.step-num {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-medium);
+  color: var(--cyan-core);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

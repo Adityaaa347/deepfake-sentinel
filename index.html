@@ -12,26 +12,30 @@
   <header class="top-shell">
     <div class="shell-container">
       <div class="brand-unit">
-        <div class="brand-emblem">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-            <polyline points="2 17 12 22 22 17"></polyline>
-            <polyline points="2 12 12 17 22 12"></polyline>
+        <div class="brand-emblem" title="Veritas Sentinel Biometric Security Shield">
+          <!-- Easy, Memorable Logo: Security Shield with Scan Lens -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <circle cx="12" cy="11" r="3.2"/>
+            <path d="m14.5 13.5 2.5 2.5"/>
           </svg>
         </div>
         <div class="brand-text">
-          <h1>Veritas Sentinel &bull; Deepfake Detection Assistant</h1>
-          <p>SIH 2024 (SIH1683) &bull; Group G011 &bull; Lead: Aditya Majumdar</p>
+          <div class="brand-title-row">
+            <h1>Veritas Sentinel</h1>
+            <span class="brand-pill">Deepfake Assistant</span>
+          </div>
+          <p class="brand-subtitle">Smart India Hackathon (SIH1683) &bull; Group G011 &bull; Lead: Aditya Majumdar</p>
         </div>
       </div>
       <div class="shell-status-group">
-        <div class="status-chip chip-active">
+        <div class="status-chip chip-active" title="Files are processed 100% inside your browser memory. Nothing is ever uploaded to any server.">
           <span class="status-dot"></span>
-          <span>Zero-Cloud Local Core</span>
+          <span>100% Private (Runs in Browser)</span>
         </div>
-        <div class="status-chip">
-          <span>Admissibility: ISO/IEC 27037</span>
-        </div>
+        <a href="tel:1930" class="status-chip emergency-chip" title="National Cyber Crime Helpline (India)">
+          <span>Helpline: 1930</span>
+        </a>
       </div>
     </div>
   </header>
@@ -40,28 +44,34 @@
   <nav class="tabs-bar">
     <div class="tabs-container">
       <button class="tab-btn active" data-tab="image">
-        <span>Image forensics</span>
-        <span class="tab-badge">ELA + Noise</span>
+        <span class="tab-icon">🖼️</span>
+        <span class="tab-label">Photo Scanner</span>
+        <span class="tab-badge">Image Forensics</span>
       </button>
       <button class="tab-btn" data-tab="video">
-        <span>Video continuity</span>
-        <span class="tab-badge">Keyframes</span>
+        <span class="tab-icon">🎬</span>
+        <span class="tab-label">Video Scanner</span>
+        <span class="tab-badge">Face-Swap Check</span>
       </button>
       <button class="tab-btn" data-tab="sih1683">
-        <span>CNN / ViT Models</span>
-        <span class="tab-badge">SIH1683</span>
+        <span class="tab-icon">🧠</span>
+        <span class="tab-label">AI / ML Models</span>
+        <span class="tab-badge">CNN &amp; ViT (SIH)</span>
       </button>
       <button class="tab-btn" data-tab="audio">
-        <span>Voice spectral</span>
-        <span class="tab-badge">Oscilloscope</span>
+        <span class="tab-icon">🎙️</span>
+        <span class="tab-label">Voice &amp; Audio</span>
+        <span class="tab-badge">Clone Detection</span>
       </button>
       <button class="tab-btn" data-tab="text">
-        <span>Text &amp; narrative</span>
-        <span class="tab-badge">Entropy</span>
+        <span class="tab-icon">📝</span>
+        <span class="tab-label">Text &amp; Chat</span>
+        <span class="tab-badge">AI Writing Check</span>
       </button>
       <button class="tab-btn danger-tab" data-tab="report">
-        <span>Police escalation</span>
-        <span class="tab-badge">Direct Dispatch</span>
+        <span class="tab-icon">🚨</span>
+        <span class="tab-label">Police Help Desk</span>
+        <span class="tab-badge danger-badge">Report Crime</span>
       </button>
     </div>
   </nav>
@@ -74,6 +84,42 @@
     <!-- ========================================== -->
     <section id="panel-image" class="tab-panel active">
       
+      <!-- Quick Simple Verdict Card (Design Thinking: Immediate Clarity) -->
+      <div class="quick-verdict-card" id="img-quick-verdict">
+        <div class="quick-verdict-icon-box" id="img-verdict-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div class="quick-verdict-body">
+          <div class="quick-verdict-status-row">
+            <span class="quick-verdict-badge danger" id="img-verdict-badge">DEEPFAKE / SPLICED IMAGE (96% CONFIDENCE)</span>
+            <span class="quick-verdict-subtext">Verified via Error Level Analysis (ELA)</span>
+          </div>
+          <div class="quick-verdict-title" id="img-verdict-title">Warning: Facial manipulation and pasted boundaries detected</div>
+          <p class="quick-verdict-desc" id="img-verdict-desc">
+            The central face region has noticeably different compression quality than the rest of the image. This happens when a face is cut from one picture and pasted onto someone else.
+          </p>
+        </div>
+        <div class="quick-verdict-actions">
+          <button class="btn btn-danger btn-sm" data-report-handoff="image">Report This Image to Police &rarr;</button>
+        </div>
+      </div>
+
+      <!-- How to use guide strip -->
+      <div class="user-guide-strip">
+        <div class="guide-step">
+          <span class="step-num">1</span>
+          <span><strong>Drop or Select:</strong> Upload any JPEG, PNG, or WebP photo below.</span>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">2</span>
+          <span><strong>See Verdict:</strong> Check the simple result above or slide the comparison bar below.</span>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">3</span>
+          <span><strong>Take Action:</strong> If someone created a fake picture of you, generate an official police report.</span>
+        </div>
+      </div>
+
       <!-- Interactive Drop & Preset Bar -->
       <div class="drop-zone-tactile" id="img-dropzone">
         <input type="file" id="img-input" accept="image/jpeg,image/png,image/webp" style="display:none;" />
@@ -418,6 +464,41 @@
     <!-- ========================================== -->
     <section id="panel-audio" class="tab-panel">
       
+      <!-- Quick Simple Verdict Card -->
+      <div class="quick-verdict-card" id="aud-quick-verdict">
+        <div class="quick-verdict-icon-box" id="aud-verdict-icon-box">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <div class="quick-verdict-body">
+          <div class="quick-verdict-status-row">
+            <span class="quick-verdict-badge danger" id="aud-verdict-badge">CLONED VOICE DETECTED (97% CONFIDENCE)</span>
+            <span class="quick-verdict-subtext">Acoustic Spectrum &amp; Nyquist Ceiling Analysis</span>
+          </div>
+          <div class="quick-verdict-title" id="aud-verdict-title">Synthetic vocoder frequency cutoffs detected</div>
+          <p class="quick-verdict-desc" id="aud-verdict-desc">
+            The audio abruptly cuts off above 16,000 Hz and lacks natural room background noise. These are known signatures of AI voice generators (like ElevenLabs or Deepfake voice cloners).
+          </p>
+        </div>
+        <div class="quick-verdict-actions">
+          <button class="btn btn-danger btn-sm" data-report-handoff="audio">Report This Voice Note to Police &rarr;</button>
+        </div>
+      </div>
+
+      <div class="user-guide-strip">
+        <div class="guide-step">
+          <span class="step-num">1</span>
+          <span><strong>Drop Audio:</strong> Upload any WhatsApp voice note, MP3, WAV, or AAC audio file.</span>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">2</span>
+          <span><strong>Listen &amp; Inspect:</strong> Play audio while watching the live waveform oscilloscope.</span>
+        </div>
+        <div class="guide-step">
+          <span class="step-num">3</span>
+          <span><strong>Identify Clones:</strong> Neural AI voices have unnaturally flat silence and sharp frequency limits.</span>
+        </div>
+      </div>
+
       <div class="drop-zone-tactile" id="aud-dropzone">
         <input type="file" id="aud-input" accept="audio/*" style="display:none;" />
         <div class="drop-info">

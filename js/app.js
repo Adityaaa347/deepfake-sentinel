@@ -178,6 +178,113 @@
     });
   });
 
+
+  // =========================================================================
+  // HUMAN-CENTERED DESIGN: PLAIN-ENGLISH VERDICT SYNC
+  // =========================================================================
+  function updateImageQuickVerdict(result) {
+    const card = document.getElementById('img-quick-verdict');
+    const badge = document.getElementById('img-verdict-badge');
+    const title = document.getElementById('img-verdict-title');
+    const desc = document.getElementById('img-verdict-desc');
+    const iconBox = document.getElementById('img-verdict-icon-box');
+    if (!card || !badge || !title || !desc || !iconBox) return;
+
+    if (result.isDeepfake) {
+      card.className = 'quick-verdict-card';
+      badge.className = 'quick-verdict-badge danger';
+      badge.textContent = `DEEPFAKE / EDITED (${result.confidence}% CONFIDENCE)`;
+      title.textContent = 'Warning: Signs of digital manipulation or face-swapping detected';
+      desc.textContent = result.reasons[0] || 'Unnatural compression boundaries and noise discrepancies were detected around the facial region.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+    } else {
+      card.className = 'quick-verdict-card authentic';
+      badge.className = 'quick-verdict-badge authentic';
+      badge.textContent = `LIKELY AUTHENTIC (${result.confidence}% CONFIDENCE)`;
+      title.textContent = 'No obvious digital manipulation detected';
+      desc.textContent = 'The image exhibits uniform sensor noise distribution, natural optical depth, and authentic compression consistency across all regions.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>';
+    }
+  }
+
+  function updateVideoQuickVerdict(result) {
+    const card = document.getElementById('vid-quick-verdict');
+    const badge = document.getElementById('vid-verdict-badge');
+    const title = document.getElementById('vid-verdict-title');
+    const desc = document.getElementById('vid-verdict-desc');
+    const iconBox = document.getElementById('vid-verdict-icon-box');
+    if (!card || !badge || !title || !desc || !iconBox) return;
+
+    const isFake = result.score >= 50;
+    if (isFake) {
+      card.className = 'quick-verdict-card';
+      badge.className = 'quick-verdict-badge danger';
+      badge.textContent = `FACE-SWAP DETECTED (${result.score}% RISK)`;
+      title.textContent = 'Unnatural facial motion or boundary seams detected between frames';
+      desc.textContent = result.reasons[0] || 'Inter-frame keyframe analysis revealed temporal motion jitter and facial perimeter inconsistency.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+    } else {
+      card.className = 'quick-verdict-card authentic';
+      badge.className = 'quick-verdict-badge authentic';
+      badge.textContent = `LIKELY AUTHENTIC VIDEO (${100 - result.score}% CONFIDENCE)`;
+      title.textContent = 'Natural optical motion and continuous frame transitions';
+      desc.textContent = 'Inter-frame optical transitions conform to natural continuous lens movement without artificial warping seams.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>';
+    }
+  }
+
+  function updateAudioQuickVerdict(result) {
+    const card = document.getElementById('aud-quick-verdict');
+    const badge = document.getElementById('aud-verdict-badge');
+    const title = document.getElementById('aud-verdict-title');
+    const desc = document.getElementById('aud-verdict-desc');
+    const iconBox = document.getElementById('aud-verdict-icon-box');
+    if (!card || !badge || !title || !desc || !iconBox) return;
+
+    const isFake = result.score >= 50;
+    if (isFake) {
+      card.className = 'quick-verdict-card';
+      badge.className = 'quick-verdict-badge danger';
+      badge.textContent = `AI CLONED VOICE DETECTED (${result.score}% RISK)`;
+      title.textContent = 'Synthetic vocoder frequency cutoffs detected in audio';
+      desc.textContent = result.reasons[0] || 'The audio exhibits a sharp cutoff above 16kHz or lacks natural acoustic background noise.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+    } else {
+      card.className = 'quick-verdict-card authentic';
+      badge.className = 'quick-verdict-badge authentic';
+      badge.textContent = `NATURAL HUMAN VOICE (${100 - result.score}% CONFIDENCE)`;
+      title.textContent = 'Natural acoustic room noise and organic vocal tremor detected';
+      desc.textContent = 'Audio spectrum and acoustic background noise floor exhibit authentic microphone recording characteristics.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>';
+    }
+  }
+
+  function updateTextQuickVerdict(result) {
+    const card = document.getElementById('txt-quick-verdict');
+    const badge = document.getElementById('txt-verdict-badge');
+    const title = document.getElementById('txt-verdict-title');
+    const desc = document.getElementById('txt-verdict-desc');
+    const iconBox = document.getElementById('txt-verdict-icon-box');
+    if (!card || !badge || !title || !desc || !iconBox) return;
+
+    const isFake = result.score >= 50;
+    if (isFake) {
+      card.className = 'quick-verdict-card';
+      badge.className = 'quick-verdict-badge danger';
+      badge.textContent = `LIKELY AI-GENERATED (${result.score}% RISK)`;
+      title.textContent = 'Uniform sentence rhythm and stereotypical AI phrasing patterns';
+      desc.textContent = result.reasons[0] || 'The text displays low vocabulary entropy and characteristic machine-generated transitional phrasing.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+    } else {
+      card.className = 'quick-verdict-card authentic';
+      badge.className = 'quick-verdict-badge authentic';
+      badge.textContent = `ORGANIC HUMAN AUTHORSHIP (${100 - result.score}% CONFIDENCE)`;
+      title.textContent = 'Natural sentence burstiness and diverse vocabulary';
+      desc.textContent = 'Linguistic diversity, sentence length pacing, and vocabulary variability reflect natural, spontaneous human authorship.';
+      iconBox.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>';
+    }
+  }
+
   function setImageViewMode(mode) {
     state.activeImageViewMode = mode;
     imgViewModes.forEach(btn => {
@@ -408,6 +515,7 @@
       <div>AI Generation Markers: ${result.metadata.aiMarkersFound.length > 0 ? `<span style="color:var(--crimson-core); font-weight:700;">${result.metadata.aiMarkersFound.join(', ')}</span>` : '<span style="color:var(--text-dim);">None detected in binary chunks</span>'}</div>
     `;
 
+    updateImageQuickVerdict(result);
     setImageViewMode(state.activeImageViewMode || 'ela');
   }
 
@@ -508,6 +616,7 @@
 
     const findingsList = document.getElementById('vid-findings-list');
     findingsList.innerHTML = result.reasons.map(r => `<li>${r}</li>`).join('') || '<li>Inter-frame optical transitions conform to natural continuous lens movement.</li>';
+    updateVideoQuickVerdict(result);
 
     const strip = document.getElementById('vid-keyframes-strip');
     strip.innerHTML = '';
@@ -611,6 +720,7 @@
 
     const findingsList = document.getElementById('aud-findings-list');
     findingsList.innerHTML = result.reasons.map(r => `<li>${r}</li>`).join('') || '<li>Audio spectrum and acoustic background noise floor exhibit authentic microphone recording characteristics.</li>';
+    updateAudioQuickVerdict(result);
 
     drawOscilloscopeStatic(audSpectrumCanvas, result.score >= 50);
   }
@@ -820,6 +930,7 @@
 
     const findingsList = document.getElementById('text-findings-list');
     findingsList.innerHTML = result.reasons.map(r => `<li>${r}</li>`).join('') || '<li>Linguistic diversity, sentence length pacing, and vocabulary variability reflect natural human authorship.</li>';
+    updateTextQuickVerdict(result);
 
     const markersContainer = document.getElementById('text-markers-container');
     if (result.foundMarkers.length > 0) {
