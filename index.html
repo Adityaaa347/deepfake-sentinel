@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Veritas Sentinel: Forensic Media Analysis &amp; Cyber Escalation</title>
-  <link rel="stylesheet" href="styles.css?v=3">
+  <title>Deepfake Detection Assistant | SIH 2024 (SIH1683) — Group G011</title>
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -22,10 +22,10 @@
         </div>
         <div class="brand-text">
           <div class="brand-title-row">
-            <h1>Veritas Sentinel</h1>
-            <span class="brand-pill">Deepfake Assistant</span>
+            <h1>Deepfake Detection Assistant</h1>
+            <span class="brand-pill">SIH1683 &bull; Group G011</span>
           </div>
-          <p class="brand-subtitle">Smart India Hackathon (SIH1683) &bull; Group G011 &bull; Lead: Aditya Majumdar</p>
+          <p class="brand-subtitle">Aditya Majumdar (12301818) &bull; Deepak Kumar (12311052) &bull; Manokan Kumar (12311823)</p>
         </div>
       </div>
       <div class="shell-status-group">
@@ -263,16 +263,16 @@
       
       <!-- SIH Header Banner -->
       <div class="sih-banner">
-        <div class="sih-banner-tag">SMART INDIA HACKATHON 2024 &bull; PROBLEM STATEMENT SIH1683</div>
-        <div class="sih-banner-title">AI/ML Solution for Detection of Face-Swap Based Deepfake Videos</div>
-        <div class="sih-banner-meta">
-          <span><strong>Target Datasets:</strong> FaceForensics++ (c23/c40) &amp; Celeb-DF v2</span>
-          <span>&bull;</span>
-          <span><strong>Team ID:</strong> Group G011</span>
-          <span>&bull;</span>
-          <span><strong>Team Lead:</strong> Aditya Majumdar</span>
-        </div>
+      <div class="sih-banner-tag">SIH 2024 &bull; PROBLEM STATEMENT SIH1683 &bull; CSE276 PROJECT</div>
+      <div class="sih-banner-title">Deepfake Detection Assistant: AI/ML Solution for Detection of Face-Swap Based Deepfake Videos</div>
+      <div class="sih-banner-meta">
+        <span><strong>Team Group:</strong> G011</span>
+        <span>&bull;</span>
+        <span><strong>Team Members:</strong> Aditya Majumdar (12301818), Deepak Kumar (12311052), Manokan Kumar (12311823)</span>
+        <span>&bull;</span>
+        <span><strong>Target Datasets:</strong> FaceForensics++ (c23/c40) &amp; Celeb-DF v2</span>
       </div>
+    </div>
 
       <!-- Grid of Interactive Controls -->
       <div class="workbench-layout-sih">
@@ -441,7 +441,46 @@
             <div class="cli-snippet-box">
               <code># 1. Train CNN with Focal Loss &amp; Balanced Sampling<br>python ml/train.py --model mesonet --loss focal --epochs 10<br><br># 2. Train Vision Transformer (ViT)<br>python ml/train.py --model vit --loss focal --epochs 10<br><br># 3. Evaluate &amp; Generate ROC Curves<br>python ml/evaluate.py --model mesonet --checkpoint ml/checkpoints/mesonet_best.pth</code>
             </div>
+          
+        <!-- Team Member Allocation & Project Mapping Card -->
+        <div class="card-panel" style="margin-top: 16px;">
+          <div class="card-header-line">
+            <span class="card-header-title">6. Official Project Allocation &amp; Team Contributions</span>
+            <span class="badge-neutral">CSE276 &bull; Group G011</span>
           </div>
+          <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 12px; line-height: 1.5;">
+            <strong>Problem:</strong> Face-swap and manipulated videos require reliable automated detection.<br>
+            <strong>Solution Directive:</strong> Develop a CNN/ViT-based classifier with FaceForensics++ or Celeb-DF; include class imbalance handling and explainability.
+          </div>
+          <table class="sih-benchmark-table" style="font-size: 11px;">
+            <thead>
+              <tr>
+                <th>Member Name</th>
+                <th>Reg. No</th>
+                <th>Assigned Role &amp; Technical Contribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Aditya Majumdar</strong> (Lead)</td>
+                <td><code>12301818</code></td>
+                <td>CNN/ViT Hybrid Architecture, Grad-CAM Explainability Engine, Front-end UI &amp; Interactive Inspector</td>
+              </tr>
+              <tr>
+                <td><strong>Deepak Kumar</strong></td>
+                <td><code>12311052</code></td>
+                <td>Dataset Curation (FaceForensics++, Celeb-DF v2), MTCNN Face Crop &amp; Alignment Pipeline, Data Augmentation</td>
+              </tr>
+              <tr>
+                <td><strong>Manokan Kumar</strong></td>
+                <td><code>12311823</code></td>
+                <td>Model Training &amp; Optimization, Class Imbalance Mitigation (Focal Loss &amp; Sampler), Evaluation Benchmarks</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+</div>
 
         </div>
 
@@ -646,9 +685,9 @@
   <div id="toast"></div>
 
   <!-- VANILLA JAVASCRIPT MODULES — ZERO EXTERNAL LIBRARIES -->
-  <script src="js/image-forensics.js?v=3"></script>
-  <script src="js/video-forensics.js?v=3"></script>
-  <script src="js/police-report.js?v=3"></script>
-  <script src="js/app.js?v=3"></script>
+  <script src="js/image-forensics.js?v=4"></script>
+  <script src="js/video-forensics.js?v=4"></script>
+  <script src="js/police-report.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
 </body>
 </html>
