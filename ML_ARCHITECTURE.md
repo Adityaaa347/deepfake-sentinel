@@ -2,7 +2,7 @@
 ## AI/ML Solution for Detection of Face-Swap Based Deepfake Videos
 **Group ID:** G011  
 **Team Lead:** Aditya Majumdar (12301818)  
-**Team Members:** Deepak Kumar (12311052), Manokan Kumar (12311823)  
+**Team Members:** Deepak Kumar (12311052), Hansdev Kumar (12311823)  
 **Repository:** [https://github.com/Adityaaa347/deepfake-sentinel](https://github.com/Adityaaa347/deepfake-sentinel)  
 **Live Application:** [https://adityaaa347.github.io/deepfake-sentinel/](https://adityaaa347.github.io/deepfake-sentinel/)
 
@@ -28,7 +28,7 @@
 | :--- | :--- | :--- | :--- |
 | **Aditya Majumdar** *(Lead)* | `12301818` | Lead Architect & Full-Stack UI | CNN/ViT Hybrid Ensemble architecture, Grad-CAM attribution engine, interactive client-side forensic workbench, and automated police reporting dossier. |
 | **Deepak Kumar** | `12311052` | Data Engineering & Preprocessing | FaceForensics++ (c23/c40) & Celeb-DF v2 ingestion pipeline, MTCNN face detection/alignment, temporal video frame extraction, and social media degradation augmentations. |
-| **Manokan Kumar** | `12311823` | Model Training & Metrics | PyTorch training pipeline, Class Imbalance Mitigation (Focal Loss $\gamma=2.0$, WeightedRandomSampler resolving 9.55:1 skew), benchmark evaluation (Accuracy, F1, AUC-ROC). |
+| **Hansdev Kumar** | `12311823` | Model Training & Metrics | PyTorch training pipeline, Class Imbalance Mitigation (Focal Loss $\gamma=2.0$, WeightedRandomSampler resolving 9.55:1 skew), benchmark evaluation (Accuracy, F1, AUC-ROC). |
 
 
 ## 2. Dataset Benchmarking & Analysis
