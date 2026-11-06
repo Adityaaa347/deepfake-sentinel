@@ -58,16 +58,6 @@
         <span class="tab-label">AI / ML Models</span>
         <span class="tab-badge">CNN &amp; ViT (SIH)</span>
       </button>
-      <button class="tab-btn" data-tab="audio">
-        <span class="tab-icon">🎙️</span>
-        <span class="tab-label">Voice &amp; Audio</span>
-        <span class="tab-badge">Clone Detection</span>
-      </button>
-      <button class="tab-btn" data-tab="text">
-        <span class="tab-icon">📝</span>
-        <span class="tab-label">Text &amp; Chat</span>
-        <span class="tab-badge">AI Writing Check</span>
-      </button>
       <button class="tab-btn danger-tab" data-tab="report">
         <span class="tab-icon">🚨</span>
         <span class="tab-label">Police Help Desk</span>
@@ -462,160 +452,6 @@
     <!-- ========================================== -->
     <!-- TAB 3: VOICE SPECTRAL                      -->
     <!-- ========================================== -->
-    <section id="panel-audio" class="tab-panel">
-      
-      <!-- Quick Simple Verdict Card -->
-      <div class="quick-verdict-card" id="aud-quick-verdict">
-        <div class="quick-verdict-icon-box" id="aud-verdict-icon-box">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-        </div>
-        <div class="quick-verdict-body">
-          <div class="quick-verdict-status-row">
-            <span class="quick-verdict-badge danger" id="aud-verdict-badge">CLONED VOICE DETECTED (97% CONFIDENCE)</span>
-            <span class="quick-verdict-subtext">Acoustic Spectrum &amp; Nyquist Ceiling Analysis</span>
-          </div>
-          <div class="quick-verdict-title" id="aud-verdict-title">Synthetic vocoder frequency cutoffs detected</div>
-          <p class="quick-verdict-desc" id="aud-verdict-desc">
-            The audio abruptly cuts off above 16,000 Hz and lacks natural room background noise. These are known signatures of AI voice generators (like ElevenLabs or Deepfake voice cloners).
-          </p>
-        </div>
-        <div class="quick-verdict-actions">
-          <button class="btn btn-danger btn-sm" data-report-handoff="audio">Report This Voice Note to Police &rarr;</button>
-        </div>
-      </div>
-
-      <div class="user-guide-strip">
-        <div class="guide-step">
-          <span class="step-num">1</span>
-          <span><strong>Drop Audio:</strong> Upload any WhatsApp voice note, MP3, WAV, or AAC audio file.</span>
-        </div>
-        <div class="guide-step">
-          <span class="step-num">2</span>
-          <span><strong>Listen &amp; Inspect:</strong> Play audio while watching the live waveform oscilloscope.</span>
-        </div>
-        <div class="guide-step">
-          <span class="step-num">3</span>
-          <span><strong>Identify Clones:</strong> Neural AI voices have unnaturally flat silence and sharp frequency limits.</span>
-        </div>
-      </div>
-
-      <div class="drop-zone-tactile" id="aud-dropzone">
-        <input type="file" id="aud-input" accept="audio/*" style="display:none;" />
-        <div class="drop-info">
-          <div class="drop-title">Select or drop voice note or audio file</div>
-          <div class="drop-hint">MP3, WAV, AAC, M4A, OGG — Nyquist vocoder cliff &amp; acoustic floor inspection</div>
-        </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="btn btn-secondary" id="btn-demo-synth-audio">Synthesize vocoder test</button>
-          <button class="btn btn-outline" id="btn-demo-auth-audio">Synthesize microphone test</button>
-        </div>
-      </div>
-
-      <!-- Real-Time Oscilloscope & Spectrogram Rig -->
-      <div class="audio-rig">
-        <div class="card-header-line" style="margin-bottom: 10px;">
-          <span class="card-header-title">Real-time acoustic frequency spectrum &amp; vocoder brick-wall monitor</span>
-          <span style="font-size: 11px; font-family: var(--font-mono); color: var(--cyan-core);" id="audio-playback-status">Standby</span>
-        </div>
-        <canvas id="aud-spectrum-canvas" class="oscilloscope-canvas" width="800" height="120"></canvas>
-        <div class="audio-controls-bar">
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-primary" id="btn-audio-play-sample">Play Audio Sample</button>
-            <button class="btn btn-secondary" id="btn-audio-stop-sample">Stop</button>
-          </div>
-          <div style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
-            Frequency Range: 20 Hz – 22.05 kHz | Nyquist Window: 2048 FFT
-          </div>
-        </div>
-      </div>
-
-      <div class="dock-columns">
-        <div class="card-panel">
-          <div class="card-header-line">
-            <span class="card-header-title">Neural vocoder diagnostic findings</span>
-          </div>
-          <ul class="findings-list" id="aud-findings-list"></ul>
-        </div>
-
-        <div>
-          <div class="verdict-cockpit">
-            <div>
-              <div class="verdict-score" id="aud-score-val">0%</div>
-              <div class="verdict-sublabel">Synthetic speech probability</div>
-            </div>
-            <span id="aud-verdict-badge" class="badge-tag badge-safe">READY</span>
-          </div>
-
-          <div class="card-panel" style="margin-bottom: 16px;">
-            <div class="card-header-line">
-              <span class="card-header-title">Acoustic measurements</span>
-            </div>
-            <div id="aud-metrics-grid"></div>
-          </div>
-
-          <button class="btn btn-danger btn-block" data-report-handoff="audio">
-            Transfer evidence to Police Desk ↗
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- TAB 4: TEXT AND NARRATIVE                  -->
-    <!-- ========================================== -->
-    <section id="panel-text" class="tab-panel">
-      
-      <div class="card-panel" style="margin-bottom: 20px;">
-        <div class="card-header-line">
-          <span class="card-header-title">Authorship &amp; LLM narrative inspector</span>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn btn-secondary" id="btn-sample-ai">Load AI model sample</button>
-            <button class="btn btn-outline" id="btn-sample-human">Load human sample</button>
-          </div>
-        </div>
-
-        <textarea id="text-input-area" class="narrative-textarea" placeholder="Paste suspected text communication, extortion message, or generated narrative..."></textarea>
-
-        <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
-          <button class="btn btn-primary" id="btn-analyze-text">Analyze Narrative Entropy</button>
-        </div>
-      </div>
-
-      <div class="dock-columns" id="text-results">
-        <div class="card-panel">
-          <div class="card-header-line">
-            <span class="card-header-title">Linguistic diagnostic findings</span>
-          </div>
-          <ul class="findings-list" id="text-findings-list"></ul>
-          <div id="text-markers-container" style="margin-top: 16px;"></div>
-        </div>
-
-        <div>
-          <div class="verdict-cockpit">
-            <div>
-              <div class="verdict-score" id="text-score-val">0%</div>
-              <div class="verdict-sublabel">Algorithmic text likelihood</div>
-            </div>
-            <span id="text-verdict-badge" class="badge-tag badge-safe">READY</span>
-          </div>
-
-          <div class="card-panel" style="margin-bottom: 16px;">
-            <div class="card-header-line">
-              <span class="card-header-title">Statistical metrics</span>
-            </div>
-            <div id="text-metrics-grid"></div>
-          </div>
-
-          <button class="btn btn-danger btn-block" data-report-handoff="text">
-            Transfer narrative to Police Desk ↗
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- TAB 5: POLICE ESCALATION DESK              -->
-    <!-- ========================================== -->
     <section id="panel-report" class="tab-panel">
       
       <div class="enforcement-banner">
@@ -655,11 +491,11 @@
               <div class="input-block">
                 <label class="input-label" for="rep-category">Incident classification</label>
                 <select id="rep-category" class="dossier-input">
-                  <option value="Non-Consensual Deepfake & Defamation">Non-Consensual Deepfake &amp; Defamation</option>
-                  <option value="Voice Clone Financial Fraud / Extortion">Voice Clone Financial Fraud / Extortion</option>
-                  <option value="Corporate / CEO Impersonation Scam">Corporate / CEO Impersonation Scam</option>
-                  <option value="Political & Election Disinformation">Political &amp; Election Disinformation</option>
-                  <option value="Cyber Harassment & Identity Theft">Cyber Harassment &amp; Identity Theft</option>
+                  <option value="Non-Consensual Face-Swap & Defamation">Non-Consensual Face-Swap &amp; Defamation</option>
+                  <option value="Face-Swap Video Extortion / Blackmail">Face-Swap Video Extortion / Blackmail</option>
+                  <option value="Corporate / Executive Video Impersonation">Corporate / Executive Video Impersonation</option>
+                  <option value="Political & Election Disinformation Video">Political &amp; Election Disinformation Video</option>
+                  <option value="Spliced Image Tampering & Identity Theft">Spliced Image Tampering &amp; Identity Theft</option>
                   <option value="Child Safety Violation (Urgent Escalation)">Child Safety Violation (Urgent Escalation)</option>
                 </select>
               </div>
@@ -812,8 +648,6 @@
   <!-- VANILLA JAVASCRIPT MODULES — ZERO EXTERNAL LIBRARIES -->
   <script src="js/image-forensics.js"></script>
   <script src="js/video-forensics.js"></script>
-  <script src="js/audio-forensics.js"></script>
-  <script src="js/text-forensics.js"></script>
   <script src="js/police-report.js"></script>
   <script src="js/app.js"></script>
 </body>

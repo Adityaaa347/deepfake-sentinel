@@ -122,7 +122,6 @@ In addition to neural Grad-CAM, the web platform (`https://adityaaa347.github.io
 1. **Error Level Analysis (ELA):** Resaves the image at 90% JPEG quantization; calculates pixel-level difference scaled $20\times$ to expose compression inconsistencies along face-swap boundaries.
 2. **Laplacian High-Pass Spatial Frequency:** Convolves a $3 \times 3$ kernel ($\nabla^2 f = 4z_5 - (z_2 + z_4 + z_6 + z_8)$) to reveal smoothing and synthetic skin blurs.
 3. **Temporal Mean Absolute Difference (MAD):** Measures inter-frame facial coordinate disparity ($\text{MAD} = \frac{1}{HW} \sum |I_t - I_{t-1}|$) to identify face-swap warping jitter.
-4. **Spectral Nyquist Voice Analysis:** Detects vocoder brickwall cutoffs (16 kHz / 24 kHz) and synthetic digital silence in cloned audio.
 
 ---
 

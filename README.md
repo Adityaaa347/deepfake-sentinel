@@ -70,7 +70,6 @@ Rather than an unexplainable black-box prediction, Veritas Sentinel provides two
    * **Error Level Analysis (ELA):** Recompression differential reveals digital splicing.
    * **Laplacian High-Pass Filter:** Exposes GAN checkerboard patterns and synthetic skin smoothing.
    * **Temporal Mean Absolute Difference (MAD):** Frame-by-frame motion tracking reveals face-swap warping jitter.
-   * **Audio Nyquist Vocoder Cliffs:** Detects 16kHz/24kHz brickwall ceilings in cloned voices.
 
 ---
 
