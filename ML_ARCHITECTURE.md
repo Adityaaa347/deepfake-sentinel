@@ -1,8 +1,8 @@
 # SIH 2024 (SIH1683): Deepfake Detection Assistant
 ## AI/ML Solution for Detection of Face-Swap Based Deepfake Videos
 **Group ID:** G011  
-**Team Lead:** Aditya Majumdar (12301818)  
-**Team Members:** Deepak Kumar (12311052), Hansdev Kumar (12311823)  
+**Team Lead:** Aditya Majumdar  
+**Team Members:** Deepak Kumar, Hansdev Kumar  
 **Repository:** [https://github.com/Adityaaa347/deepfake-sentinel](https://github.com/Adityaaa347/deepfake-sentinel)  
 **Live Application:** [https://adityaaa347.github.io/deepfake-sentinel/](https://adityaaa347.github.io/deepfake-sentinel/)
 
@@ -24,11 +24,11 @@
 
 ## 👥 Allocated Team Members & Individual Contributions (CSE276 Rubric)
 
-| Member Name | Registration No. | Allocated Role | Individual Technical Contribution |
-| :--- | :--- | :--- | :--- |
-| **Aditya Majumdar** *(Lead)* | `12301818` | Lead Architect & Full-Stack UI | CNN/ViT Hybrid Ensemble architecture, Grad-CAM attribution engine, interactive client-side forensic workbench, and automated police reporting dossier. |
-| **Deepak Kumar** | `12311052` | Data Engineering & Preprocessing | FaceForensics++ (c23/c40) & Celeb-DF v2 ingestion pipeline, MTCNN face detection/alignment, temporal video frame extraction, and social media degradation augmentations. |
-| **Hansdev Kumar** | `12311823` | Model Training & Metrics | PyTorch training pipeline, Class Imbalance Mitigation (Focal Loss $\gamma=2.0$, WeightedRandomSampler resolving 9.55:1 skew), benchmark evaluation (Accuracy, F1, AUC-ROC). |
+| Member Name | Allocated Role | Individual Technical Contribution |
+| :--- | :--- | :--- |
+| **Aditya Majumdar** *(Lead)* | Lead Architect & Full-Stack UI | CNN/ViT Hybrid Ensemble architecture, Grad-CAM attribution engine, interactive client-side forensic workbench, and automated police reporting dossier. |
+| **Deepak Kumar** | Data Engineering & Preprocessing | FaceForensics++ (c23/c40) & Celeb-DF v2 ingestion pipeline, MTCNN face detection/alignment, temporal video frame extraction, and social media degradation augmentations. |
+| **Hansdev Kumar** | Model Training & Metrics | PyTorch training pipeline, Class Imbalance Mitigation (Focal Loss $\gamma=2.0$, WeightedRandomSampler resolving 9.55:1 skew), benchmark evaluation (Accuracy, F1, AUC-ROC). |
 
 
 ## 2. Dataset Benchmarking & Analysis
