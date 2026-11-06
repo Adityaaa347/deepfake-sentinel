@@ -2,7 +2,7 @@
  * Veritas Forensic Core - Main Application Controller
  * Art Direction: High-End Laboratory & Forensic Terminal
  * Features: Interactive Split-View Comparison Slider, Reticle Loupe,
- * Live Animated Audio Oscilloscope, Keyframe Scrubber, and Police Escalation.
+ * Keyframe Scrubber, Neural Grad-CAM Visualizer, and Police Escalation.
  */
 
 (function () {
